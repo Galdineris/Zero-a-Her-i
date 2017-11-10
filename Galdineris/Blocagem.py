@@ -14,10 +14,14 @@ white = (255,255,255)
 
 posicao = [250,200]
 
-tora = pygame.Rect(200,400,200,100)
-##image.load("tora.png")
-##imagerect = tora.get_rect()
-pygame.draw.rect(screen,white,tora,3)
+hidra = pygame.Rect(200,550,200,100)
+hercules1 = pygame.Rect(140,550,50,100)
+hercules2 = pygame.Rect(410,550,50,100)
+
+##image.load("hidra.png")
+##imagerect = hidra.get_rect()
+pygame.draw.rect(screen,white,hidra,3)
+pygame.draw.rect(screen, white,hercules1, 3 )
 pygame.display.update()
 
 while True:
@@ -31,35 +35,38 @@ while True:
                 sys.exit()
                 
             if event.key == pygame.K_LEFT:
-                tora.left -= 10
+                hidra.top -= 10
                 screen.fill((0,255,0))
-                pygame.draw.rect(screen,white,tora,3)
+                pygame.draw.rect(screen, white,hercules1,3)
                 print("esquerda")
-                pygame.display.update()
-            if event.key == pygame.K_RIGHT:
-                tora.right += 10
-                screen.fill((0,255,0))
-                pygame.draw.rect(screen,white,tora,3)
-                print("direita")
-                pygame.display.update()
-
                 
+            if event.key == pygame.K_RIGHT:
+                hidra.top += 10
+                screen.fill((0,255,0))
+                pygame.draw.rect(screen, white,hercules2,3)
+                print("direita")
+
+        pygame.draw.rect(screen, white,hidra,3)
+        pygame.display.update()
+
+            
 ##            if event.key == pygame.K_UP:
-##                tora.top -= 10
+##                hidra.top -= 10
 ##                screen.fill((0,255,0))
-##                pygame.draw.rect(screen,white,tora,3)
+##                pygame.draw.rect(screen,white,hidra,3)
 ##                print("direita")
 ##                pygame.display.update()
 ##                
 ##            if event.key == pygame.K_DOWN:
-##                tora.top += 10
+##                hidra.top += 10
 ##                screen.fill((0,255,0))
-##                pygame.draw.rect(screen,white,tora,3)
+##                pygame.draw.rect(screen,white,hidra,3)
 ##                print("direita")
 ##                pygame.display.update()
 
 
-    pygame.display.flip()
+
+pygame.display.flip()
 
 
 
