@@ -1,17 +1,33 @@
 #26/10
 import pygame
-import time
+import random
 import sys
 
 def draw_tela():
     screen.fill((0,255,0))
-    pygame.draw.rect(screen,white,hidra1,3)
-    pygame.draw.rect(screen,white,hidra2,3)
-    pygame.draw.rect(screen,white,hidra3,3)
-    pygame.draw.rect(screen,white,hidra4,3)
+    
     pygame.draw.rect(screen,white,hercules,3)
-    pygame.draw.rect(screen,white,galho,2)
+    
+    for i in range(len(hidra)): pygame.draw.rect(screen,white,hidra[i],3)
+
+    for i in range(len(galho)): pygame.draw.rect(screen,white,galho[i],2)
+    
     pygame.display.update()
+
+def cortar():
+    for j in range(len(hidra)):
+        for i in range(20):
+            hidra[j].y += 5
+            draw_tela()
+            if hidra[j].y > 650:
+                hidra[j].y -= 600
+    for j in range(len(galho)):
+        for i in range(20):
+            galho[j].y += 5
+            draw_tela()
+            if galho[j].y > 650:
+                galho[j].y -= 600
+    print("tecla")
 
 
 pygame.init()
@@ -26,67 +42,58 @@ white = (255,255,255)
 
 posicao = [250,200]
 
-hidra1 = pygame.Rect(200,550,200,100)
-hidra2 = pygame.Rect(200,450,200,100)
-hidra3 = pygame.Rect(200,350,200,100)
-hidra4 = pygame.Rect(200,250,200,100)
-galho = pygame.Rect(140,450,50,100)
-hercules = pygame.Rect(140,550,100,50)
+galho = [pygame.Rect(400,550,100,50), pygame.Rect(100,450,100,50),pygame.Rect(400,350,100,50),pygame.Rect(100,250,100,50),pygame.Rect(400,150,100,50),pygame.Rect(100,50,100,50)]
 
-##image.load("hidra.png")
-##imagerect = hidra.get_rect()
+hidra = [pygame.Rect(200,550,200,100),pygame.Rect(200,450,200,100),pygame.Rect(200,350,200,100),pygame.Rect(200,250,200,100),pygame.Rect(200,150,200,100),pygame.Rect(200,50,200,100)]
+
+hercules = pygame.Rect(140,550,50,100)
+
+galhos = [[0,1,1,0,0],[0,0,1,1,0]]
+hero = [0,0]
+
 draw_tela()
 
-tecla = 1
 pygame.display.update()
 
 while True:
-
+            
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
         if event.type == pygame.KEYDOWN:
+
+            #random Galhos
+            for j in range(2):
+                for i in range(len(galhos)-1, 0):
+                    galhos[j][i] = galhos[j][i-1]
+                galhos[j][0] = random.getrandbits(1)
+            print(galhos)
+
+            #desenhar galhos
+            for j in range(2):
+                for i in range(len(galhos)):
+                    pass
+                
+            
+
+            #Sair com ESC
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
                 sys.exit()
-                
+
+            #Setas
             if event.key == pygame.K_LEFT:
                 hercules = pygame.Rect(140,550,50,100)
-                for i in range(20):
-                    hidra1.top += 5
-                    draw_tela()
-                print("esquerda")  
-                
-                
+                cortar()
+                hero = [1,0]
             if event.key == pygame.K_RIGHT:
                 hercules = pygame.Rect(410,550,50,100)
-                for i in range(20):
-                    hidra1.top -= 5
-                    draw_tela() 
-                print("direita")
-                    
+                cortar()
+                hero = [0,1]
 
         draw_tela()
 
-            
-##            if event.key == pygame.K_UP:
-##                hidra.top -= 10
-##                screen.fill((0,255,0))
-##                pygame.draw.rect(screen,white,hidra,3)
-##                print("direita")
-##                pygame.display.update()
-##                
-##            if event.key == pygame.K_DOWN:
-##                hidra.top += 10
-##                screen.fill((0,255,0))
-##                pygame.draw.rect(screen,white,hidra,3)
-##                print("direita")
-##                pygame.display.update()
-
-
-
-pygame.display.flip()
 
 
 
