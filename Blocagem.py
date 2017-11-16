@@ -12,6 +12,13 @@ def draw_tela():   #EU SIRVO PARA REDESENHAR A TELA (AKA SOU OS "FRAMES" DO JOGO
     for i in range(len(hidra)): pygame.draw.rect(screen,white,hidra[i],3)
 
     for i in range(len(cabecas)): pygame.draw.rect(screen,white,cabecas[i],2)
+
+    scoretext = fonte.render("Pontos {0}".format(score),10, (0,0,0))
+    screen.blit(scoretext, (200, 10))
+    
+
+
+
     
     pygame.display.update()
 
@@ -41,6 +48,11 @@ def cortar(lado,posicao):  #SOU RESPONSÁVEL POR MOVER OS OBJETOS E SOU CHAMADO 
 
 pygame.init()
 
+
+
+
+score = 0
+
 screen = pygame.display.set_mode((600,700)) #TAMANHO DA TELA (SE FOR ME ALTERAR, LEMBRAR QUE TODOS OS VALORES FORAM BASEADOS EM MIM)
 
 pygame.display.set_caption("De Zero a Herói") #NOME DA JANELA DO JOGO (IDEAL COLOCAR NOME DO JOGO)
@@ -57,6 +69,13 @@ hercules = pygame.Rect(140,550,50,100) # desenho herói
 
 posicao = [random.randint(0,1) for i in range(6)] #lado que as cabeças (galhos) vão aparecer
 
+fonte = pygame.font.SysFont("Comic Sans MS",30)
+
+
+
+
+
+
 for i in range(len(posicao)): #Crio a tela inicial
     if posicao[i] == 0:
         cabecas[i].x = 100
@@ -67,11 +86,14 @@ lado = 0
 
 draw_tela()
 
+
+
 pygame.display.update()
 
 while True:
+
+
     for event in pygame.event.get():
-        
         if event.type == pygame.QUIT: #sair ao clickar no x no canto da janela
             pygame.quit()
             sys.exit()
@@ -87,17 +109,37 @@ while True:
                 hercules = pygame.Rect(140,550,50,100)
                 cortar(lado,posicao)
                 lado = 0
+                score+=1
+                
             if event.key == pygame.K_RIGHT:
                 hercules = pygame.Rect(410,550,50,100)
                 cortar(lado,posicao)
                 lado = 1
+                score+=1
+                
 
             for i in range(len(cabecas)): #TESTE DE "COLISÃO" ---ENDGAME---
                 if cabecas[i].y == 550:
                     if posicao[i] == lado:
                         lado = 666 #FLAG DE DERROTA
-    draw_tela()
+    # render text
 
+
+
+
+
+
+
+    
+        
+        
+
+    
+
+            
+            
+    draw_tela()
+    
     #QUEBRA DO LOOP JOGO
     if lado == 666:
         break
@@ -106,5 +148,3 @@ while True:
 print("fim de jogo")
 pygame.quit()
 sys.exit()
-
-
