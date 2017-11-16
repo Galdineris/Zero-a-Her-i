@@ -1,17 +1,20 @@
-
 rank = [["Mabel", 7],["Shadow", 5],["Shinigami", 8 ],["Mick", 3]]
 
 
 
-def pontuacao():
-    name = str(input("Insira o seu nome: "))
-    pontos = Blocagem.pontuacao()
-
+def pontuacao(name, pontos):
     rank.append([name, pontos])
 
 
 def buscar_pontuacao():
-    pass
+    nome = str(input("Insira o seu nome: "))
+
+    for i in range(len(rank)):
+        if nome == rank[i][0]:
+            print ("Nome: ", rank[i][0], "     Pontos: ", rank[i][1])
+        else:
+            return None
+            
 
 
 def imprimir_ranking():
